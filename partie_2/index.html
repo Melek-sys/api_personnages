@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"> <!-- UTF-8 encoding to handle accents properly -->
+  <title>API Characters</title> <!-- Page title -->
+</head>
+<body>
+  <h1>List of Characters</h1> <!-- Visible title on the page -->
+
+  <!-- Button to trigger the API call -->
+  <button onclick="load()">Load Characters</button>
+
+  <!-- HTML element to display the list -->
+  <ul id="list"></ul>
+
+  <script>
+    // Function called when the button is clicked
+    async function load() {
+      try {
+        // GET call to the FastAPI API, with the token in the headers
+        const response = await fetch("http://localhost:8000/personnages", {
+          method: "GET",
+          headers: {
+            "token": "SECRET123"  // The same token as in your FastAPI backend
+          }
+        });
+
+        // If the request was successful (HTTP status 200)
+        if (response.ok) {
+          // Convert the response to JSON (list of characters)
+          const data = await response.json();
+
+          // Get the HTML element <ul id="list">
+          const list = document.getElementById("list");
+
+          // Clear the list before adding elements
+          list.innerHTML = "";
+
+          // For each character received, create a <li> with name + team
+          data.forEach(p => {
+            const li = document.createElement("li");         // Create a new <li> element
+            li.textContent = `${p.nom} (${p.equipe})`;       // Example: Olivier Atton (Nankatsu)
+            list.appendChild(li);                           // Add the <li> to the <ul>
+          });
+        } else {
+          // If the response is not 200 (e.g., 401), display an alert
+          alert("API Error: " + response.status);
+        }
+      } catch (err) {
+        // If a network error occurs (API not started, wrong URL...)
+        alert("Network or server error.");
+        console.error("Network error:", err); // Display the error in the console
+      }
+    }
+  </script>
+</body>
+</html>

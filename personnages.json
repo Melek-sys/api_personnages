@@ -1,0 +1,21 @@
+[
+  {
+    "id": 1,
+    "nom": "jason derulo",
+    "equipe": "psg"
+  },
+  {
+    "id": 2,
+    "nom": "lionel messi",
+    "equipe": "portugal"
+  }
+  {
+    "id": 3,
+    "nom": "cristiano ronaldo",
+    "equipe": "argentine"
+  }{
+    "id": 4,
+    "nom": "samir loussif",
+    "equipe": "tounes"
+  }
+]
